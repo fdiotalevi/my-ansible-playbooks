@@ -1,0 +1,25 @@
+---
+- hosts: "{{ lookup('env', 'LINODE') }}"
+  tasks:
+    - name: update apt repo
+      action: apt update-cache=yes
+
+    - name: install nginx 
+      action: apt name=nginx state=installed
+      
+    - name: remove default host file
+      file: path=/etc/nginx/sites-enabled/default state=absent
+      
+    - name: firewall - allow ssh
+      ufw: rule=allow name=OpenSSH
+      
+    - name: firewall - allow HTTP
+      ufw: rule=allow port=80 proto=tcp
+      
+    - name: firewall - allow HTTPS
+      ufw: rule=allow port=443 proto=tcp
+      
+    - name: firewall - enable
+      ufw: state=enabled policy=reject
+      
+

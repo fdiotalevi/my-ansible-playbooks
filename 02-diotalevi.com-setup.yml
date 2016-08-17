@@ -1,0 +1,26 @@
+---
+- hosts: "{{ lookup('env', 'SERVER_IP') }}"
+  user: root  
+
+  pre_tasks:
+    - name: stop service nginx 
+      action: service name=nginx state=stopped 
+      
+  roles:
+    - role: thefinn93.letsencrypt
+      letsencrypt_webroot_path: /var/www/diotalevi.com
+      letsencrypt_email: "{{ lookup('env', 'LETSENCRYPT_EMAIL') }}"
+      letsencrypt_cert_domains:
+        - www.diotalevi.com
+        - diotalevi.com
+      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
+      
+  tasks:     
+     - name: copy the nginx website template
+       template: src=templates/diotalevi.com.template dest=/etc/nginx/sites-enabled/diotalevi.com owner=root group=root 
+       
+     - name: create web folder
+       file: path=/var/www/diotalevi.com state=directory
+                   
+     - name: service nginx 
+       action: service name=nginx state=restarted

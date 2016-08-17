@@ -1,0 +1,22 @@
+server {
+    listen              443 ssl;
+    server_name         knokode.com;
+    keepalive_timeout   70;
+    root /var/www/knokode.com;
+    location / {
+    		# First attempt to serve request as file, then
+    		# as directory, then fall back to displaying a 404.
+    		try_files $uri $uri/ =404;
+    }
+  
+    ssl_certificate     /etc/letsencrypt/live/www.knokode.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.knokode.com/privkey.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+}
+
+server {
+    listen      80;
+    server_name knokode.com;
+    return 301  https://knokode.com$request_uri;
+}
