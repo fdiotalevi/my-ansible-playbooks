@@ -1,0 +1,19 @@
+---
+- hosts: "{{ lookup('env', 'SERVER_IP') }}"
+  user: root  
+  
+  tasks:     
+     - name: remove tmp folder if exists
+       file: path=/tmp/diotalevi.com state=absent
+  
+     - name: clone repo
+       git: repo=https://github.com/fdiotalevi/diotalevi.com.git dest=/tmp/diotalevi.com clone=yes
+  
+     - name: remove current web folder
+       file: path=/var/www/diotalevi.com state=absent
+                   
+     - name: move tmp folder to live
+       command: mv /tmp/diotalevi.com /var/www/diotalevi.com
+       
+     - name: remove tmp folder if exists
+       file: path=/tmp/diotalevi.com state=absent
