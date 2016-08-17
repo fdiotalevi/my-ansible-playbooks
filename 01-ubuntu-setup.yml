@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ lookup('env', 'LINODE') }}"
+- hosts: "{{ lookup('env', 'SERVER_IP') }}"
   tasks:
     - name: update apt repo
       action: apt update-cache=yes
