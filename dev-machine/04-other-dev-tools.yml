@@ -3,3 +3,5 @@
   tasks:
     - name: install git
       action: apt name=git state=installed
+    - name: install vim
+      action: apt name=vim state=installed
