@@ -1,0 +1,17 @@
+---
+- hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
+  roles:
+    - williamyeh.oracle-java
+  tasks:
+    - name: install maven
+      action: apt name=maven state=installed
+    
+    - name: install ant
+      action: apt name=ant state=installed
+      
+    - name: install gradle
+      action: apt name=gradle state=installed          
+      
+  vars:
+    java_version: 8
+    java_set_javahome: true

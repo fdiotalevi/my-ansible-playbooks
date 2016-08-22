@@ -1,0 +1,8 @@
+---
+- hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
+  tasks:
+    - name: update apt repo
+      action: apt update-cache=yes
+      
+    - name: create developer
+      user: name=developer generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa 
