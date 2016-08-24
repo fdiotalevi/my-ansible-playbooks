@@ -1,7 +1,13 @@
 ---
 - hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
   tasks:
-    - name: install git
-      action: apt name=git state=installed
-    - name: install vim
-      action: apt name=vim state=installed
+    - name: install packages 
+      apt: name={{item}} state=installed
+      with_items:
+            - git
+            - vim
+            - curl
+            - wget
+            - unzip
+            - openvpn
+            - python-pip

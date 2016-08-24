@@ -1,0 +1,4 @@
+---
+- hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
+  roles:
+    - angstwad.docker_ubuntu
