@@ -11,3 +11,5 @@
             - unzip
             - openvpn
             - python-pip
+            - zsh
+            - tmux
