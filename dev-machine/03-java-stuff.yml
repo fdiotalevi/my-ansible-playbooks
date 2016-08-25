@@ -3,6 +3,15 @@
   roles:
     - williamyeh.oracle-java
   tasks:
+    - name: remove wrong java link 
+      file: path=/usr/lib/jvm/default-java state=absent
+
+    - name: set right java link 
+      file: 
+        src: /usr/lib/jvm/jdk1.8.0_92
+        dest: /usr/lib/jvm/default-java 
+        state: link
+     
     - name: install maven
       action: apt name=maven state=installed
     
@@ -14,4 +23,5 @@
       
   vars:
     java_version: 8
+    java_subversion: 92
     java_set_javahome: true
