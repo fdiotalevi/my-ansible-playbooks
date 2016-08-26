@@ -1,0 +1,45 @@
+---
+- hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
+  tasks:
+     
+    - name: Download Scala
+      get_url: url=http://www.scala-lang.org/files/archive/scala-{{ scala_version }}.tgz 
+        dest=/tmp/scala-{{ scala_version }}.tgz
+
+    - name: Extract and install Scala
+      unarchive: src=/tmp/scala-{{ scala_version }}.tgz dest=/opt copy=no
+
+    - name: Symlink Scala into /usr/local/bin
+      file: src=/opt/scala-{{ scala_version }}/bin/{{ item }} dest=/usr/local/bin/{{ item }} state=link
+      with_items:
+        - fsc
+        - scala
+        - scalac
+        - scaladoc
+        - scalap
+
+    - name: Download SBT package
+      get_url: url=https://dl.bintray.com/sbt/debian/sbt-{{ scala_sbt_version }}.deb 
+        dest=/tmp/sbt-{{ scala_sbt_version }}.deb
+
+    - name: Install SBT
+      apt: deb=/tmp/sbt-{{ scala_sbt_version }}.deb state=installed  
+      
+    - name: Download Activator
+      get_url: url=https://downloads.typesafe.com/typesafe-activator/{{ activator_version }}/typesafe-activator-{{ activator_version }}-minimal.zip 
+        dest=/tmp/typesafe-activator-{{ activator_version }}-minimal.zip
+      
+    - name: Extract the Activator
+      unarchive: src=/tmp/typesafe-activator-{{ activator_version }}-minimal.zip dest=/opt copy=no
+    
+    - name: Make the activator executable by everybody
+      file: path=/opt/activator-{{ activator_version }}-minimal/bin/activator mode=755   
+      
+    - name: Symlink the activator
+      file: src=/opt/activator-{{ activator_version }}-minimal/bin/activator
+        dest=/usr/local/bin/activator state=link 
+
+  vars:
+    scala_version: 2.11.8
+    scala_sbt_version: 0.13.12
+    activator_version: 1.3.10
