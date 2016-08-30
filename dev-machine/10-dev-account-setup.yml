@@ -5,7 +5,7 @@
       user: name=developer generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa
       
     - name: developer groups
-      user: name=developer groups=developer,docker
+      user: name=developer groups=developer,docker,sudo
             
     - name: remove bashrc
       file: path=/home/developer/.bashrc state=absent
