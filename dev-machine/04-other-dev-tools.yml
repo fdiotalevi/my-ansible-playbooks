@@ -15,6 +15,7 @@
             - tmux
             - mosh
             - nginx
+            - ruby-full
             
     - name: make sure nginx is stopped
       action: service name=nginx state=stopped            
