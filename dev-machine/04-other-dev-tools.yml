@@ -14,3 +14,7 @@
             - zsh
             - tmux
             - mosh
+            - nginx
+            
+    - name: make sure nginx is stopped
+      action: service name=nginx state=stopped            
