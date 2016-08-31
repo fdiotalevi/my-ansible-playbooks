@@ -1,5 +1,7 @@
 ---
 - hosts: "{{ lookup('env', 'DEV_MACHINE') }}"
+  roles:
+     - { role: cmprescott.chrome, become: yes }
   tasks:
     - name: install packages 
       apt: name={{item}} state=installed
@@ -16,6 +18,8 @@
             - mosh
             - nginx
             - ruby-full
+            - tcpflow
+            - httpry
             
     - name: make sure nginx is stopped
       action: service name=nginx state=stopped            
