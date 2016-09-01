@@ -20,6 +20,7 @@
             - ruby-full
             - tcpflow
             - httpry
+            - haveged
             
     - name: make sure nginx is stopped
       action: service name=nginx state=stopped            
