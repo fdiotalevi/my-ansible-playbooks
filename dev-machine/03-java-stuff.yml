@@ -8,7 +8,7 @@
 
     - name: set right java link 
       file: 
-        src: /usr/lib/jvm/jdk1.8.0_92
+        src: /usr/lib/jvm/jdk1.8.0_102
         dest: /usr/lib/jvm/default-java 
         state: link
      
@@ -23,5 +23,5 @@
       
   vars:
     java_version: 8
-    java_subversion: 92
+    java_subversion: 102
     java_set_javahome: true
