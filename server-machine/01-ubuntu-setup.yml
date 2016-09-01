@@ -22,4 +22,15 @@
     - name: firewall - enable
       ufw: state=enabled policy=reject
       
+    - name: install various packages 
+      apt: name={{item}} state=installed
+      with_items:
+            - vim
+            - curl
+            - wget
+            - unzip
+            - tmux
+            - mosh
+            - haveged      
+      
 
