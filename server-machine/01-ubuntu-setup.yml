@@ -19,6 +19,9 @@
     - name: firewall - allow HTTPS
       ufw: rule=allow port=443 proto=tcp
       
+    - name: firewall - let mosh pass
+      ufw: rule=allow port=60000:61000 proto=udp      
+      
     - name: firewall - enable
       ufw: state=enabled policy=reject
       
