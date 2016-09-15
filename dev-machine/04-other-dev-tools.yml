@@ -21,9 +21,10 @@
             - tcpflow
             - httpry
             - haveged
+            - vim-nox-py2
             
     - name: make sure nginx is stopped
       action: service name=nginx state=stopped            
 
-    - name: install python virtualenv
-      raw: pip install virtualenv
+    - name: install python modules
+      raw: pip install virtualenv websocket-client sexpdata

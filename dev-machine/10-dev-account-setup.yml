@@ -13,6 +13,11 @@
     - name: remove profile
       file: path=/home/developer/.profile state=absent
       
+    - name: install vim plug
+      raw: curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      become: yes
+      become_user: developer      
+      
     - name: clone dotfiles
       git: repo=https://github.com/fdiotalevi/dotfiles.git dest=/tmp/dotfiles
       become: yes
@@ -28,3 +33,15 @@
       
     - name: remove tmp dotfiles folder
       file: path=/tmp/dotfiles state=absent      
+
+    - name: add .m2 folder
+      file: path=/home/developer/.m2 state=directory
+      become: yes
+      become_user: developer
+            
+    - name: copy m2 settings file
+      copy: src=templates/maven/settings.xml dest=/home/developer/.m2/settings.xml
+      become: yes
+      become_user: developer
+           
+      
